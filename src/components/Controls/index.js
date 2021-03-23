@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://localhost:8000');
+const socket = openSocket(process.env.REACT_APP_URL_SERVER);
 
 const Controls = ({ limitTime }) => {
   const [commentText, setCommentText] = useState('');

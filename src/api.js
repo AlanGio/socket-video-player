@@ -2,7 +2,7 @@
 
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://localhost:8000');
+const socket = openSocket(process.env.REACT_APP_URL_SERVER);
 
 const subscribeToComment = (cb) => {
   socket.on('comment', (comment) => cb(null, comment));
