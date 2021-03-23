@@ -22,7 +22,10 @@ const Controls = ({ limitTime }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setCommentText('');
+
+    if (!commentText) {
+      return null;
+    }
 
     const currentTime = new Date().getTime();
     const commentData = {
@@ -31,6 +34,7 @@ const Controls = ({ limitTime }) => {
       text: commentText,
     };
     socket.emit('commentToShow', commentData);
+    setCommentText('');
     return false;
   }
 

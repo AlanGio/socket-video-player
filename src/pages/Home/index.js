@@ -11,11 +11,10 @@ import VideoPlayer from '../../components/VideoPlayer';
 
 import './index.scss';
 
-const VIDEO_URL = `${process.env.PUBLIC_URL}/Big_Buck_Bunny_1080_10s_5MB.mp4`;
-const MESSAGES_DELAY = 3000; // Time in miliseconds
+const VIDEO_URL = `${process.env.PUBLIC_URL}/Big_Buck_Bunny_1080_10s_5MB.mp4`; // Video Internal Route
+const MESSAGES_DELAY = 10000; // Time in miliseconds
 
 const Home = () => {
-
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -24,7 +23,15 @@ const Home = () => {
     }
   )}, []);
 
-  console.log(comments, 'comments')
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setComments(comments => comments.filter((comment) => {
+        return Math.sign(Date.now() - comment.end) === -1;
+      }));
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="home">
       <Container>
