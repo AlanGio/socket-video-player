@@ -1,7 +1,9 @@
 
+import './index.scss';
+
 const VideoPlayer = ({ videoUrl}) => {
   return (
-    <video className="video-web" autoPlay muted playsInline>
+    <video className="video-player" autoPlay loop muted playsInline>
       <source src={videoUrl} type="video/mp4" />
     </video>
   );

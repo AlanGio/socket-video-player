@@ -1,40 +1,53 @@
 import React, { useState } from 'react';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import openSocket from 'socket.io-client';
 const  socket = openSocket('http://localhost:8000');
 
-const Controls = () => {
+const Controls = ({ limitTime }) => {
 
-  const [data, setData] = useState({
-    text: '',
-  });
-
+  const [commentText, setCommentText] = useState('');
 
   const handleInputChange = (event) => {
-    console.log(event.target.name)
-    console.log(event.target.value)
-    setData({
-        ...data,
-        [event.target.name] : event.target.value
-    })
+    setCommentText(event.target.value);
   }
 
-  const sendForm = (event) => {
-    event.preventDefault();
-    console.log('textToShow data...' + data.text)
-    socket.emit('textToShow', data.text);
+  const handleKeypress = (event) => {
+    if(event.keyCode === 13) {
+      handleSubmit(event);
+    }
+  };
 
-    // {text: '', start: 'timestamp', end: 'timestamp'}
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setCommentText('');
+
+    const currentTime = new Date().getTime();
+    const commentData = {
+      end: currentTime + limitTime,
+      start: currentTime,
+      text: commentText,
+    };
+    socket.emit('commentToShow', commentData);
     return false;
   }
 
   return (
-    <Form inline onSubmit={sendForm}>
-      <Form.Label className="my-1 mr-2" htmlFor="text">Text</Form.Label>
-      <Form.Control as="textarea" onChange={handleInputChange} className="my-1 mr-sm-2" rows={3} id="text" name="text" />
-      <Button type="submit" className="my-1">Submit</Button>
+    <Form inline onSubmit={handleSubmit}>
+      <Form.Label className="col-sm-2" htmlFor="comment"><h4>Message:</h4></Form.Label>
+      <Form.Control
+        as="textarea"
+        onChange={handleInputChange}
+        className="col-sm-8"
+        rows={1}
+        value={commentText}
+        onKeyDown={handleKeypress}
+      />
+      <div className="col-sm-2">
+        <Button type="submit">Send</Button>
+      </div>
     </Form>
   );
 }

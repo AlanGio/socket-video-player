@@ -1,0 +1,13 @@
+body {
+  .comments-box {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 16px;
+
+    .comment {
+      font-size: 18px;
+    }
+  }
+}
