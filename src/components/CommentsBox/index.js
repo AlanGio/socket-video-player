@@ -1,36 +1,35 @@
-
+import React from 'react';
 import './index.scss';
 
 const formatHour = (time) => {
-  const date = new Date(parseInt(time));
+  const date = new Date(parseInt(time, 10));
   return date.toLocaleTimeString(navigator.language, {
     hour: '2-digit',
-    minute:'2-digit',
+    minute: '2-digit',
     second: '2-digit',
   });
-}
-
-const Comment = ({ index, start, text }) => {
-  return (
-    <div className="comment" key={index}>
-      <strong>{formatHour(start)}</strong> {text}
-    </div>
-  );
 };
 
-const CommentsBox = ({ comments }) => {
+const Comment = ({ start, text }) => (
+  <div className="comment" key={start}>
+    <strong>{formatHour(start)}</strong>
+    {' '}
+    {text}
+  </div>
+);
 
+const CommentsBox = ({ comments }) => {
   if (comments.length === 0) {
     return null;
   }
 
   return (
     <div className="comments-box">
-      {comments.map((comment, index) => (
-        <Comment key={index} {...comment} />
+      {comments.map((comment) => (
+        <Comment {...comment} />
       ))}
     </div>
   );
-}
+};
 
 export default CommentsBox;

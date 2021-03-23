@@ -4,21 +4,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import openSocket from 'socket.io-client';
-const  socket = openSocket('http://localhost:8000');
+
+const socket = openSocket('http://localhost:8000');
 
 const Controls = ({ limitTime }) => {
-
   const [commentText, setCommentText] = useState('');
-
-  const handleInputChange = (event) => {
-    setCommentText(event.target.value);
-  }
-
-  const handleKeypress = (event) => {
-    if(event.keyCode === 13) {
-      handleSubmit(event);
-    }
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -36,7 +26,17 @@ const Controls = ({ limitTime }) => {
     socket.emit('commentToShow', commentData);
     setCommentText('');
     return false;
-  }
+  };
+
+  const handleInputChange = (event) => {
+    setCommentText(event.target.value);
+  };
+
+  const handleKeypress = (event) => {
+    if (event.keyCode === 13) {
+      handleSubmit(event);
+    }
+  };
 
   return (
     <Form inline onSubmit={handleSubmit}>
@@ -54,6 +54,6 @@ const Controls = ({ limitTime }) => {
       </div>
     </Form>
   );
-}
+};
 
 export default Controls;

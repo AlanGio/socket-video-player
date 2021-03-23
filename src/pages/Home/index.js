@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import { subscribeToComment } from '../../api';
+import subscribeToComment from '../../api';
 
 import CommentsBox from '../../components/CommentsBox';
 import Controls from '../../components/Controls';
@@ -19,15 +19,13 @@ const Home = () => {
 
   useEffect(() => {
     subscribeToComment((err, commentCallback) => {
-      setComments(comments => [...comments, commentCallback]);
-    }
-  )}, []);
+      setComments((oldComments) => [commentCallback, ...oldComments]);
+    });
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setComments(comments => comments.filter((comment) => {
-        return Math.sign(Date.now() - comment.end) === -1;
-      }));
+      setComments((oldComments) => oldComments.filter((oldComment) => Math.sign(Date.now() - oldComment.end) === -1));
     }, 2500);
     return () => clearInterval(interval);
   }, []);
@@ -47,6 +45,6 @@ const Home = () => {
       </Container>
     </div>
   );
-}
+};
 
 export default Home;
