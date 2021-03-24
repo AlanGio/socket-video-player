@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import openSocket from 'socket.io-client';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import openSocket from 'socket.io-client';
+import './index.scss';
 
 const socket = openSocket(process.env.REACT_APP_URL_SERVER);
 
@@ -39,20 +40,25 @@ const Controls = ({ limitTime }) => {
   };
 
   return (
-    <Form inline onSubmit={handleSubmit}>
-      <Form.Label className="col-sm-2" htmlFor="comment"><h4>Message:</h4></Form.Label>
-      <Form.Control
-        as="textarea"
-        onChange={handleInputChange}
-        className="col-sm-8"
-        rows={1}
-        value={commentText}
-        onKeyDown={handleKeypress}
-      />
-      <div className="col-sm-2">
-        <Button type="submit">Send</Button>
-      </div>
-    </Form>
+    <div className="controls">
+      <Form onSubmit={handleSubmit}>
+        <div className="col-sm-12">
+          <Form.Label htmlFor="comment"><h4>Chat:</h4></Form.Label>
+        </div>
+        <div className="col-sm-12">
+          <Form.Control
+            as="textarea"
+            onChange={handleInputChange}
+            rows={4}
+            value={commentText}
+            onKeyDown={handleKeypress}
+          />
+        </div>
+        <div className="col-sm-12">
+          <Button type="submit">Send</Button>
+        </div>
+      </Form>
+    </div>
   );
 };
 

@@ -1,0 +1,14 @@
+body {
+  .notes-box {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 16px;
+    color: yellow;
+
+    .note {
+      font-size: 18px;
+    }
+  }
+}
