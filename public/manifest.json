@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Virti Video Chat",
+  "name": "Virti Video Chat with Socket",
   "icons": [
     {
       "src": "favicon.ico",

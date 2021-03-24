@@ -19,7 +19,7 @@ const Home = () => {
 
   useEffect(() => {
     subscribeToComment((err, commentCallback) => {
-      setComments((oldComments) => [commentCallback, ...oldComments]);
+      setComments((oldComments) => [...oldComments, commentCallback]);
     });
   }, []);
 
