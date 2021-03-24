@@ -26,7 +26,7 @@ const CommentsBox = ({ comments }) => {
   return (
     <div className="comments-box">
       {comments.map((comment) => (
-        <Comment {...comment} />
+        <Comment {...comment} key={comment.start} />
       ))}
     </div>
   );
