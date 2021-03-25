@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useCallback } from 'react';
 
 import Button from 'react-bootstrap/Button';
@@ -22,10 +21,9 @@ const ControlsNotes = ({ videoDuration }) => {
       return null;
     }
 
-    const currentTime = new Date().getTime();
     const noteData = {
-      end: currentTime,
-      start: currentTime,
+      end: appear + dissapear,
+      start: appear,
       text: noteText,
     };
     socket.emit('noteToShow', noteData);
@@ -45,17 +43,17 @@ const ControlsNotes = ({ videoDuration }) => {
 
   const handleAppearChange = useCallback(
     (event) => {
-      setDissapearLimit(videoDuration - event.target.value);
-      setAppear(event.target.value);
+      setDissapearLimit(parseInt(videoDuration - event.target.value, 10));
+      setAppear(parseInt(event.target.value, 10));
     },
-    [videoDuration, appear, dissapearLimit],
+    [videoDuration],
   );
 
   const handleDisappearChange = useCallback(
     (event) => {
-      setDissapear(event.target.value);
+      setDissapear(parseInt(event.target.value, 10));
     },
-    [dissapear],
+    [],
   );
 
   return (
@@ -76,12 +74,49 @@ const ControlsNotes = ({ videoDuration }) => {
         <div className="col-sm-12">
           <Row>
             <div className="col-sm-6">
-              <Form.Label className="col-sm-12" htmlFor="note"><h4>Will appear at {appear} Seconds:</h4></Form.Label>
-              <Form.Control className="col-sm-12" type="range" custom min={0} max={videoDuration - 1} step={1} onChange={handleAppearChange} defaultValue={appear} />
+              <Form.Label
+                className="col-sm-12"
+                htmlFor="note"
+              >
+                <h4>
+                  Will appear at
+                  {' '}
+                  {appear}
+                  {' '}
+                  Seconds:
+                </h4>
+              </Form.Label>
+              <Form.Control
+                className="col-sm-12"
+                type="range"
+                custom
+                min={0}
+                max={videoDuration - 1}
+                step={1}
+                onChange={handleAppearChange}
+                defaultValue={appear}
+              />
             </div>
             <div className="col-sm-6">
-              <Form.Label className="col-sm-12" htmlFor="note"><h4>Will dissapear after {dissapear} Seconds:</h4></Form.Label>
-              <Form.Control className="col-sm-12" type="range" custom min={1} max={dissapearLimit} step={1} onChange={handleDisappearChange} defaultValue={dissapear} />
+              <Form.Label className="col-sm-12" htmlFor="note">
+                <h4>
+                  Will dissapear after
+                  {' '}
+                  {dissapear}
+                  {' '}
+                  Seconds:
+                </h4>
+              </Form.Label>
+              <Form.Control
+                className="col-sm-12"
+                type="range"
+                custom
+                min={1}
+                max={dissapearLimit}
+                step={1}
+                onChange={handleDisappearChange}
+                defaultValue={dissapear}
+              />
             </div>
           </Row>
         </div>

@@ -1,4 +1,6 @@
 import React from 'react';
+import lodash from 'lodash';
+
 import './index.scss';
 
 const formatHour = (time) => {
@@ -26,7 +28,7 @@ const CommentsBox = ({ comments }) => {
   return (
     <div className="comments-box">
       {comments.map((comment) => (
-        <Comment {...comment} key={comment.start} />
+        <Comment {...comment} key={lodash.uniqueId('comment_')} />
       ))}
     </div>
   );

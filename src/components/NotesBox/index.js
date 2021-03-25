@@ -1,5 +1,5 @@
 import React from 'react';
-import uniqueId from 'lodash';
+import lodash from 'lodash';
 
 import './index.scss';
 
@@ -16,8 +16,9 @@ const NotesBox = ({ notes }) => {
 
   return (
     <div className="notes-box">
+      <h4>Notes:</h4>
       {notes.map((note) => (
-        <Note {...note} key={uniqueId('note_')} />
+        <Note {...note} key={lodash.uniqueId('note_')} />
       ))}
     </div>
   );
